@@ -24,14 +24,11 @@ export class GoogleSheetsService {
       return;
     }
 
-    // Logic xử lý Private Key siêu bền bỉ cho Vercel
-    privateKey = privateKey
-      .replace(/^"(.*)"$/, '$1')      // Xóa dấu ngoặc kép bọc ngoài nếu có
-      .replace(/\\n/g, '\n')          // Chuyển \n thành dấu xuống dòng thực tế
-      .replace(/\\ /g, ' ');          // Xử lý khoảng trắng thừa nếu có
-
-    // Nếu key vẫn chưa có dấu xuống dòng (do copy paste lỗi), thử format lại
-    if (!privateKey.includes('\n') && privateKey.includes(' ')) {
+    // Handle private key formatting (newlines)
+    if (privateKey.includes('\\n')) {
+      privateKey = privateKey.replace(/\\n/g, '\n');
+    } else if (!privateKey.includes('\n') && privateKey.includes(' ')) {
+      // If the key was pasted with spaces instead of newlines
       privateKey = privateKey.replace(/ /g, '\n');
     }
 
