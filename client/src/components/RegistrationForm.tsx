@@ -274,26 +274,31 @@ export default function RegistrationForm() {
       <AnimatePresence>
         {scanNotification && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className={`fixed top-4 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-md p-4 rounded-2xl shadow-2xl border flex items-center gap-3 backdrop-blur-md ${
+            initial={{ opacity: 0, y: -20, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: -20, x: "-50%" }}
+            className={`fixed top-4 left-1/2 z-[100] w-[92%] max-w-sm p-4 rounded-2xl shadow-2xl border flex flex-col items-center text-center gap-2 backdrop-blur-md ${
               scanNotification.type === "success"
-                ? "bg-green-500/90 border-green-400 text-white"
-                : "bg-red-500/90 border-red-400 text-white"
+                ? "bg-green-500/95 border-green-400 text-white"
+                : "bg-red-500/95 border-red-400 text-white"
             }`}
           >
-            {scanNotification.type === "success" ? (
-              <CheckCircle2 className="w-6 h-6 shrink-0" />
-            ) : (
-              <AlertCircle className="w-6 h-6 shrink-0" />
-            )}
-            <p className="font-bold text-sm leading-tight">
+            <div className="flex items-center gap-2">
+              {scanNotification.type === "success" ? (
+                <CheckCircle2 className="w-6 h-6 shrink-0" />
+              ) : (
+                <AlertCircle className="w-6 h-6 shrink-0" />
+              )}
+              <p className="font-bold text-base leading-tight">
+                {scanNotification.type === "success" ? "Thành công!" : "Thất bại!"}
+              </p>
+            </div>
+            <p className="text-sm opacity-90">
               {scanNotification.message}
             </p>
             <button 
               onClick={() => setScanNotification(null)}
-              className="ml-auto p-1 hover:bg-white/20 rounded-full transition-colors"
+              className="absolute top-2 right-2 p-1 hover:bg-white/20 rounded-full transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
