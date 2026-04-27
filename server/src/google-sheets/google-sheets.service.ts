@@ -24,12 +24,17 @@ export class GoogleSheetsService {
       return;
     }
 
-    // Handle private key formatting (newlines)
-    if (privateKey.includes('\\n')) {
-      privateKey = privateKey.replace(/\\n/g, '\n');
-    } else if (!privateKey.includes('\n') && privateKey.includes(' ')) {
-      // If the key was pasted with spaces instead of newlines
-      privateKey = privateKey.replace(/ /g, '\n');
+    // Handle private key formatting (newlines and quotes)
+    if (privateKey) {
+      // Trim quotes if they exist
+      privateKey = privateKey.trim();
+      if (privateKey.startsWith('"') && privateKey.endsWith('"')) {
+        privateKey = privateKey.substring(1, privateKey.length - 1);
+      }
+      
+      if (privateKey.includes('\\n')) {
+        privateKey = privateKey.replace(/\\n/g, '\n');
+      }
     }
 
     try {
