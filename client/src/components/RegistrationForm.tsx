@@ -313,7 +313,6 @@ export default function RegistrationForm() {
         id="qr-input-native"
         type="file"
         accept="image/*"
-        capture="environment"
         className="hidden"
         ref={fileInputRef}
         onChange={handleFileUpload}
